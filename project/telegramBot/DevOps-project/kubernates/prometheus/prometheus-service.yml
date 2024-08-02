@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus-server
+  namespace: hasan
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/component: server
+    app.kubernetes.io/instance: prometheus
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: prometheus
+    app.kubernetes.io/part-of: prometheus
+    app.kubernetes.io/version: 2.53.1
+  ports:
+    - port: 9090
+      targetPort: 9090
+      protocol: TCP
+      name: prometheus-server
+#

@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yolo5-deployment
+  labels:
+    app: yolo5
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.appname }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.appname }}
+    spec:
+      serviceAccountName: {{ .Values.sa }}
+      terminationGracePeriodSeconds: 30
+      containers:
+      - name: {{ .Values.appname }}
+        image: {{ .Values.img }}
+        ports:
+        - containerPort: 80
+        env:
+        - name: BUCKET_NAME
+          value: hasan-abu-hasan-bucket
+        - name: SQS_QUEUE_NAME
+          value: https://sqs.us-east-1.amazonaws.com/933060838752/HasanQueue
+        resources:
+          requests:
+            memory: "512Mi"  # Increased memory request to 512Mi
+            cpu: "200m"      # Increased CPU request to 200m
+          limits:
+            memory: "2048Mi" # Increased memory limit to 2048Mi
+            cpu: "1000m"     # Increased CPU limit to 1000m"
+        livenessProbe:
+          httpGet:
+            path: /liveness
+            port: 80
+          initialDelaySeconds: 15
+          timeoutSeconds: 2
+          periodSeconds: 5
+          failureThreshold: 2
+        readinessProbe:
+          httpGet:
+            path: /readiness
+            port: 80
+          initialDelaySeconds: 10
+          timeoutSeconds: 3
+          periodSeconds: 10
+          failureThreshold: 3

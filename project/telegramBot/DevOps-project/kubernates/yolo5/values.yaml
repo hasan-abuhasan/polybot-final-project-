@@ -1,0 +1,6 @@
+img: hasanabuhasan/yolo:1.0.0
+appname: yolo5
+sa: yolov5-sa
+role: arn:aws:iam::933060838752:role/tamer-eks-sqs-fullaccess
+namespace: hasan
+ServiceAccount: yolov5-sa

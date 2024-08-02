@@ -1,0 +1,10 @@
+server:
+  service:
+    enabled: false
+  extraScrapeConfigs:
+    - job_name: node-exporter
+      static_configs:
+        - targets: ['node-exporter:9100']
+
+
+

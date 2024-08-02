@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: polybot-ingress
+  namespace: hasan
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    #cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    #nginx.ingress.kubernetes.io/rewrite-target: /
+    #nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+    #nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    #nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    #nginx.ingress.kubernetes.io/secure-backends: "true"
+spec:
+  tls:
+    - hosts:
+      - hasandm.atech-bot.click
+      secretName: tls-secret
+  ingressClassName: nginx
+  rules:
+    - host: hasandm.atech-bot.click
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: polybot-service
+              port:
+                number: 8443

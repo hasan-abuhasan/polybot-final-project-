@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: grafana-ingress-hasan
+  namespace: hasan
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: hasan-grafana.atech-bot.click
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: grafana-hasan
+            port:
+              number: 3000
+

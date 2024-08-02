@@ -1,0 +1,12 @@
+#service:
+  #type: ClusterIP
+  #metrics: 9100
+  #nodePort: 30080
+
+containerPorts:
+  metrics: 9100
+
+hostNetwork: false
+hostPID: false
+
+replicaCount: 1

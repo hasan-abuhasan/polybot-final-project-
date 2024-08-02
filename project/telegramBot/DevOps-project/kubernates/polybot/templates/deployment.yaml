@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: polybot-deployment 
+  labels:
+    app: {{.Values.appName }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{.Values.appName }}
+  template:
+    metadata:
+      labels:
+        app: {{.Values.appName }}
+    spec:
+      serviceAccountName: {{ .Values.ServiceAccount }}
+      #terminationGracePeriodSeconds: 30
+      containers:
+      - name: polybot
+        image: {{ .Values.img }}
+        ports:
+        - containerPort: {{ .Values.MainPort }}
+        # env:
+        # - name: bucket
+        #   value: {{ .Values.bucket }}
+        # - name: queue_url
+        #   value: https://sqs.us-east-1.amazonaws.com/933060838752/tamer-sqs
+        # - name: telegram_chat_url
+        #   value: {{ .Values.chaturl }}
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+          limits:
+            memory: "1024Mi"
+            cpu: "2000m"
+
+
+#

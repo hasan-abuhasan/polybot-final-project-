@@ -1,0 +1,6 @@
+appName: polybot
+img: hasanabuhasan/polybot:1.0.2
+MainPort: 8443
+ServiceAccount: yolov5-sa
+role: arn:aws:iam::933060838752:role/tamer-eks-sqs-fullaccess
+namespace: hasan
